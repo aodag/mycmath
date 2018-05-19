@@ -19,3 +19,7 @@ build_script:
 
 test_script:
   - "%PYTHON%\\Scripts\\tox.exe -e py"
+
+artifacts:
+  - path: 'dist/mycmath-*.whl'
+  - path: 'dist/mycmath-*.zip'
