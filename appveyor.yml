@@ -12,7 +12,7 @@ environment:
 
 install:
   # We need tox installed for the tests
-  - "%PYTHON%\\Scripts\\pip.exe install tox"
+  - "%PYTHON%\\Scripts\\pip.exe install tox wheel"
 
 build_script:
   - "%PYTHON%\\python.exe setup.py sdist bdist_wheel"
