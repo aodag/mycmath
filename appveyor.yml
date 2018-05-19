@@ -15,7 +15,7 @@ install:
   - "%PYTHON%\\Scripts\\pip.exe install -U tox wheel setuptools"
 
 build_script:
-  - "if $appveyor_repo_tag {%PYTHON%\\python.exe setup.py release sdist bdist_wheel} else {%PYTHON%\\python.exe setup.py sdist bdist_wheel}"
+  - "if $appveyor_repo_tag { %PYTHON%\\python.exe setup.py release sdist bdist_wheel } else { %PYTHON%\\python.exe setup.py sdist bdist_wheel }"
 
 test_script:
   - "%PYTHON%\\Scripts\\tox.exe -e py"
