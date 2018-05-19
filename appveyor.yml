@@ -23,3 +23,14 @@ test_script:
 artifacts:
   - path: 'dist/mycmath-*.whl'
   - path: 'dist/mycmath-*.zip'
+
+deploy:
+  provider: GitHub
+  description: release $(APPVEYOR_REPO_TAG_NAME)
+  auth_token:
+    secure: VzO72c+6RPmLxtoJjQ10IsDAEoWa3kTDky9cpO+XaoZN3BXybFA6sbscOsYJkIKJ
+  artifact: /mycmath-.*\.(whl|zip)/
+  force_update: true
+  on:
+    branch: master
+    appveyor_repo_tag: true
