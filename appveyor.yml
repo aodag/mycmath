@@ -1,0 +1,18 @@
+---
+environment:
+
+  matrix:
+    # For Python versions available on Appveyor, see
+    # http://www.appveyor.com/docs/installed-software#python
+
+    - PYTHON: "C:\\Python35"
+    - PYTHON: "C:\\Python36"
+    - PYTHON: "C:\\Python35-x64"
+    - PYTHON: "C:\\Python36-x64"
+
+install:
+  # We need tox installed for the tests
+  - "%PYTHON%\\Scripts\\pip.exe install tox"
+
+test_script:
+  - "%PYTHON%\\Scripts\\tox.exe -e py"
