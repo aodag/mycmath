@@ -1,4 +1,5 @@
 language: python
+sudo: required
 python:
   - '3.5'
   - '3.6'
@@ -8,12 +9,14 @@ script:
   - tox
 before_deploy:
   - python setup.py release sdist bdist_wheel
+  - docker pull quay.io/pypa/manylinux1_x86_64
+  - docker run --rm -w /io -v $PWD:/io quay.io/pypa/manylinux1_x86_64  /io/wheel.sh
 deploy:
   provider: releases
   api_key:
     secure: "Y7pFk5fb7jJ+PPQB4yADujuBLdVvZiDzDXxkQ/BYhO4SrXUS/A2RMdR8PyGaIeT7mAkRf7mZCNKhrzbKvTfBlJHZQSSQCARJGSANfdeYysuHnk19aydXm4JIEfzEaW7moAoqPhr0TGzbrSBfTfmMSwqi5v+ijeusP5r8fPNfse7yj9FB+2o5QGhgPvWB62Z0CMURnOPJc7/zmN1hbfaW+XcWEvUY9gZPIrTPh/Hoe6DMJAwEEUldiOC2wwkhowQS32J2tj2ZAmKiPMwR0t72bYCRqtejwldargTZ0L11dx8UM9zwWvnJtn8NrwGzQdB06GYf6wk98ZzoN5ffSTO65QRKrLTjHqig4JaEeYnymbs0GEc2/novm/pZIw8jGgs79QJ/7uUoG4xZ2uusXzpMCHvaFf9UhBww2iPNrBkZz8T/pvpjwqR55hcYEABQKtMFxGs3/5sf+ynNiaml+8aIVbQZ32Yx+ak8mVnTC9sWIGVhXagUKe1GszyqhQszamhM2tlNNtBeeZtEdlUxYRz+6ENGwrJ0/+UpxnqqME/sKEeT1gOvUG2zpAFZM+Dsiddj78HA1agrbfhtzcPqnLAdujkGXZg5Ua8Hqc33b+3imekCu2bg7T87s+IBGudmus/A1DAwIHDoktztMtsvw9j7zdf/RfKLZwCM2IVZm76sNIA="
   file:
-    - dist/mycmath-*.whl
+    - wheelhouse/mycmath-*.whl
     - dist/mycmath-*.zip
   file_glob: true
   skip_cleanup: true
