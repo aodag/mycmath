@@ -8,7 +8,7 @@ install:
 script:
   - tox
 before_deploy:
-  - python setup.py release sdist bdist_wheel
+  - python setup.py sdist bdist_wheel
   - docker pull quay.io/pypa/manylinux1_x86_64
   - docker run --rm -w /io -v $PWD:/io quay.io/pypa/manylinux1_x86_64  /io/wheel.sh
 deploy:
