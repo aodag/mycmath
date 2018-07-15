@@ -1,4 +1,8 @@
 language: python
+os:
+  - linux
+  - osx
+
 sudo: required
 python:
   - '3.5'
@@ -9,8 +13,8 @@ script:
   - tox
 before_deploy:
   - python setup.py sdist bdist_wheel
-  - docker pull quay.io/pypa/manylinux1_x86_64
-  - docker run --rm -w /io -v $PWD:/io quay.io/pypa/manylinux1_x86_64  /io/wheel.sh
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker pull quay.io/pypa/manylinux1_x86_64; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker run --rm -w /io -v $PWD:/io quay.io/pypa/manylinux1_x86_64  /io/wheel.sh; fi
 deploy:
   provider: releases
   api_key:
